@@ -1,0 +1,23 @@
+
+# Node runtime as parent img
+FROM node:20.15
+
+# Set working directory in container
+WORKDIR /app
+
+# Install ffmpeg (note base is for linux)
+RUN apt-get update && apt-get install -y ffmpeg
+
+COPY package*.json ./
+
+RUN npm install
+
+# Copy app source inside the docker image
+COPY . .
+
+EXPOSE 3000
+
+CMD [ "npm", "start" ]
+
+
+
